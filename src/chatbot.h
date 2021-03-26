@@ -58,7 +58,7 @@ public:
         delete _image;
         // _image = new wxBitmap(*source._image);
         //assign data from source
-        if (source._image != 0) {
+        if (source._image != NULL) {
            _image = new wxBitmap(source._image->GetPixbuf(), source._image->GetDepth());
         };
 
