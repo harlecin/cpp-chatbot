@@ -31,86 +31,16 @@ public:
     //// STUDENT CODE
     ////
     // copy constructor
-    ChatBot(const ChatBot &source) {
-
-        //deep copy (owned) 
-        //_image = new wxBitmap(*source._image);//copy constructor
-       //*_image = (*source)._image;            //copy assignment operator
-       if (source._image != NULL) {
-           //_image = new wxBitmap(source._image->GetPixbuf(), source._image->GetDepth());
-           _image = new wxBitmap(*(source._image));
-       }
-        _image->SaveFile("bot.png", wxBITMAP_TYPE_PNG);
-        //shallow copys (not owned)
-        _currentNode = source._currentNode;
-        _rootNode = source._rootNode;
-        _chatLogic = source._chatLogic;
-        std::cout << "ChatBot Copy Constructor" << std::endl;
-    }
+    ChatBot(const ChatBot &source);
 
     //copy assignment operator
-    ChatBot &operator=(const ChatBot &source) {
-        if (this == &source) {
-            return *this;
-        }
-        //owned
-        if(_image != NULL)
-            delete _image;
-        //assign data from source
-        if (source._image != NULL) {
-           _image = new wxBitmap(*(source._image));
-        };
-
-        //not owned
-        _currentNode = source._currentNode;
-        _rootNode = source._rootNode;
-        _chatLogic = source._chatLogic;
-
-        std::cout << "ChatBot Copy Assignment Operator" << std::endl;
-
-        return *this;
-
-    }
+    ChatBot &operator=(ChatBot &source);
 
     //move constructor
-    ChatBot(ChatBot &&source) {
-        std::cout << "MOVING instance " << &source << " to instance " << this << std::endl;
-
-       
-        _image = source._image;
-        _currentNode = source._currentNode;
-        _rootNode = source._rootNode;
-        _chatLogic = source._chatLogic;
-        
-        source._image = nullptr;
-        source._currentNode = nullptr;
-        source._rootNode = nullptr;
-        source._chatLogic = nullptr;
-
-    }
+    ChatBot(ChatBot &&source);
 
     //move assignment operator
-    ChatBot &operator=(ChatBot &&source) {
-        std::cout << "MOVING (assign) instance " << &source << " to instance " << this << std::endl;
-        if (this == &source)
-            return *this;
-
-        //owned
-        delete _image;
-        _image = source._image;
-
-        //not owned
-        _currentNode = source._currentNode;
-        _rootNode = source._rootNode;
-        _chatLogic = source._chatLogic;
-        
-        source._image = nullptr;
-        source._currentNode = nullptr;
-        source._rootNode = nullptr;
-        source._chatLogic = nullptr;        
-
-        return *this;
-    }
+    ChatBot &operator=(ChatBot &&source);
     ////
     //// EOF STUDENT CODE
 
