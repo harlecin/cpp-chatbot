@@ -34,12 +34,11 @@ public:
     ChatBot(const ChatBot &source) {
 
         //deep copy (owned) 
-        // TODO: If we want to make a deep copy: Does it work like this?
-        //_image = new wxBitmap(*source._image);
-       //_image = new wxBitmap(source._image)  //copy constructor
-       //*_image = (*source)._image;             //copy assignment operator
-       if (source._image != 0) {
-           _image = new wxBitmap(source._image->GetPixbuf(), source._image->GetDepth());
+        //_image = new wxBitmap(*source._image);//copy constructor
+       //*_image = (*source)._image;            //copy assignment operator
+       if (source._image != NULL) {
+           //_image = new wxBitmap(source._image->GetPixbuf(), source._image->GetDepth());
+           _image = new wxBitmap(*(source._image));
        }
         _image->SaveFile("bot.png", wxBITMAP_TYPE_PNG);
         //shallow copys (not owned)
@@ -55,11 +54,11 @@ public:
             return *this;
         }
         //owned
-        delete _image;
-        // _image = new wxBitmap(*source._image);
+        if(_image != NULL)
+            delete _image;
         //assign data from source
         if (source._image != NULL) {
-           _image = new wxBitmap(source._image->GetPixbuf(), source._image->GetDepth());
+           _image = new wxBitmap(*(source._image));
         };
 
         //not owned
@@ -98,7 +97,6 @@ public:
 
         //owned
         delete _image;
-        //_image = new wxBitmap(*source._image);
         _image = source._image;
 
         //not owned
