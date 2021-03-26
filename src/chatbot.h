@@ -33,10 +33,15 @@ public:
     // copy constructor
     ChatBot(const ChatBot &source) {
 
-        //deep copy (owned)
+        //deep copy (owned) 
         // TODO: If we want to make a deep copy: Does it work like this?
         //_image = new wxBitmap(*source._image);
-        *_image = *source._image;
+       //_image = new wxBitmap(source._image)  //copy constructor
+       //*_image = (*source)._image;             //copy assignment operator
+       if (source._image != 0) {
+           _image = new wxBitmap(source._image->GetPixbuf(), source._image->GetDepth());
+       }
+        _image->SaveFile("bot.png", wxBITMAP_TYPE_PNG);
         //shallow copys (not owned)
         _currentNode = source._currentNode;
         _rootNode = source._rootNode;
@@ -53,7 +58,9 @@ public:
         delete _image;
         // _image = new wxBitmap(*source._image);
         //assign data from source
-        *_image = *source._image;
+        if (source._image != 0) {
+           _image = new wxBitmap(source._image->GetPixbuf(), source._image->GetDepth());
+        };
 
         //not owned
         _currentNode = source._currentNode;
@@ -70,7 +77,8 @@ public:
     ChatBot(ChatBot &&source) {
         std::cout << "MOVING instance " << &source << " to instance " << this << std::endl;
 
-        *_image = *source._image;
+       
+        _image = source._image;
         _currentNode = source._currentNode;
         _rootNode = source._rootNode;
         _chatLogic = source._chatLogic;
@@ -91,7 +99,7 @@ public:
         //owned
         delete _image;
         //_image = new wxBitmap(*source._image);
-        *_image = *source._image;
+        _image = source._image;
 
         //not owned
         _currentNode = source._currentNode;
