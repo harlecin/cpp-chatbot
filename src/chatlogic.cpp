@@ -221,6 +221,8 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
     rootNode->MoveChatbotHere(_chatBot);
     std::cout << "hello :)" << std::endl;
     ChatBot _copyChatBot(*_chatBot);
+    ChatBot _testChatBot;
+    _testChatBot = *_chatBot;
     ////
     //// EOF STUDENT CODE
 }
